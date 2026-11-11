@@ -195,11 +195,6 @@ details.more[open] summary svg{transform:rotate(90deg)}
 .contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .email{font-family:var(--font-mono);font-size:1rem;user-select:all;padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);overflow-wrap:anywhere}
 .links{display:flex;flex-wrap:wrap;gap:10px}
-.refs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-top:14px}
-.refcard{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:16px;display:grid;gap:4px;align-content:start;min-width:0}
-.refcard strong{font-family:var(--font-display);font-weight:500;font-size:1.1rem}
-.refcard .r-role{color:var(--muted);font-size:.875rem}
-.refcard .r-mail{font:400 .8125rem/1.4 var(--font-mono);overflow-wrap:anywhere;margin-top:6px}
 
 footer{border-top:1px solid var(--line);padding-block:28px 40px;color:var(--muted);font-size:.8125rem}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
@@ -215,8 +210,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   .portrait .mono{font-size:4.2rem}
   section.block{grid-template-columns:minmax(0,1fr);gap:18px;padding-block:36px}
   .entry,.row{grid-template-columns:minmax(0,1fr);gap:2px}
-  .refs{grid-template-columns:minmax(0,1fr)}
-  .lang,.axis-row{grid-template-columns:80px minmax(0,1fr);gap:12px}
+    .lang,.axis-row{grid-template-columns:80px minmax(0,1fr);gap:12px}
   .lang-level{grid-column:2;text-align:left;margin-top:-6px}
   .axis-row>span:last-child{display:none}
 }
@@ -281,12 +275,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <section class="block" id="research" aria-labelledby="h-research">
       <h2 id="h-research" data-i18n="research.title">Research</h2>
       <div class="block-body">
-        <div class="group">
-          <span class="mono-label" data-i18n="research.currentLabel">PhD project · 2025 to 2029</span>
-          <h3 data-i18n="research.projectTitle"></h3>
-          <p data-i18n="research.projectText"></p>
-        </div>
-
         <article class="paper" aria-labelledby="paper-title">
           <span class="mono-label" data-i18n="research.wpLabel">Working paper · June 2026</span>
           <h3 id="paper-title">On the Effectiveness of the EU ETS</h3>
@@ -316,24 +304,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
           </div>
         </article>
 
-        <div class="group">
-          <span class="mono-label" data-i18n="research.wipLabel">Work in progress · expected year</span>
-          <ol class="rows">
-            <li class="row"><span class="when">2027</span><p class="what">Household Responses to Extreme Energy Price Shocks</p></li>
-            <li class="row"><span class="when">2027</span><p class="what">Adoption of Green Technology and Energy Independence</p></li>
-            <li class="row"><span class="when">2028</span><p class="what">IKC–ETS Overlapping Policies</p></li>
-            <li class="row"><span class="when">2029</span><p class="what">From Crisis Estimates to Future Policy</p></li>
-          </ol>
-        </div>
-
-        <div class="group">
-          <span class="mono-label" data-i18n="research.talksLabel">Presentations</span>
-          <ol class="rows">
-            <li class="row"><span class="when">2026</span><div><p class="what">Household Workshop with CBS Data</p><p class="sub">Utrecht University School of Economics, Utrecht</p></div></li>
-            <li class="row"><span class="when">2026</span><div><p class="what" data-i18n="talk.proposal">PhD proposal seminar</p><p class="sub" data-i18n="place.pbl">PBL Netherlands Environmental Assessment Agency, The Hague</p></div></li>
-            <li class="row"><span class="when">2025</span><div><p class="what" data-i18n="talk.lunch">Lunch lecture</p><p class="sub" data-i18n="place.pbl">PBL Netherlands Environmental Assessment Agency, The Hague</p></div></li>
-          </ol>
-        </div>
       </div>
     </section>
 
@@ -467,18 +437,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
           <div class="links">
             <a class="btn" href="https://www.linkedin.com/in/arlet-vila-bagaria-988108226/" target="_blank" rel="noopener">LinkedIn</a>
             <a class="btn" href="https://www.uu.nl/staff/AVilaBagaria" target="_blank" rel="noopener" data-i18n="btn.staff">Utrecht University profile</a>
-          </div>
-        </div>
-        <div class="group">
-          <div><button class="btn" type="button" id="refs-toggle" aria-expanded="false" aria-controls="refs-panel"><span data-i18n="btn.refsShow">Show references</span></button></div>
-          <div class="reveal" id="refs-panel" data-open="false">
-            <div>
-              <div class="reveal-inner refs">
-                <div class="refcard"><strong>Inge van den Bijgaart</strong><span class="r-role" data-i18n="ref.assoc">Associate Professor</span><span class="r-role">Utrecht University School of Economics</span><span class="r-mail">i.m.vandenbijgaart@uu.nl</span></div>
-                <div class="refcard"><strong>Ulrich Zierahn-Weilage</strong><span class="r-role" data-i18n="ref.full">Full Professor</span><span class="r-role">Utrecht University School of Economics</span><span class="r-mail">u.t.zierahn-weilage@uu.nl</span></div>
-                <div class="refcard"><strong>Jetske Bouma</strong><span class="r-role" data-i18n="ref.senior">Senior Environmental Economist</span><span class="r-role">PBL Netherlands Environmental Assessment Agency</span><span class="r-mail">jetske.bouma@pbl.nl</span></div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -640,7 +598,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       var p = el.getAttribute("data-i18n-attr").split(":"); el.setAttribute(p[0], t(p[1]));
     });
     document.querySelector("#cite-toggle span").textContent = citeOpen ? t("btn.citeHide") : t("btn.cite");
-    document.querySelector("#refs-toggle span").textContent = refsOpen ? t("btn.refsHide") : t("btn.refsShow");
     renderSkills();
   }
 
@@ -700,7 +657,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     document.getElementById(id).addEventListener("click", function(){ copy(emailEl.textContent.trim(), "toast.email", emailEl); });
   });
 
-  /* Reveal panels: citation and references */
+  /* Reveal panel: citation */
   function wireReveal(btnId, panelId, showKey, hideKey, getter, setter){
     var btn = document.getElementById(btnId), panel = document.getElementById(panelId);
     btn.addEventListener("click", function(){
@@ -711,7 +668,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     });
   }
   wireReveal("cite-toggle","cite-panel","btn.cite","btn.citeHide",function(){return citeOpen;},function(v){citeOpen=v;});
-  wireReveal("refs-toggle","refs-panel","btn.refsShow","btn.refsHide",function(){return refsOpen;},function(v){refsOpen=v;});
 
   var refEl = document.getElementById("ref-text");
   function renderRef(){ refEl.textContent = REFS[fmt]; }
