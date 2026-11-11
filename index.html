@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arlet Vila Bagaria</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Arlet Vila-Bagaria, PhD candidate in Economics at Utrecht University School of Economics and PBL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: academic two-column page. Portrait left / about right in the hero, then section label column + content column, after karlijnmorsink.com */
+:root{
+  --paper:#F4F6F3;
+  --surface:#FFFFFF;
+  --ink:#16201B;
+  --muted:#58655F;
+  --line:#D9DFDA;
+  --accent:#2C5E4D;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#E2ECE6;
+  --track:#E6EAE6;
+  --shadow:0 1px 2px rgba(22,32,27,.06),0 8px 24px rgba(22,32,27,.06);
+
+  --font-display:"Newsreader","Iowan Old Style","Georgia",serif;
+  --font-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101512;--surface:#171D1A;--ink:#E5EBE7;--muted:#9AA79F;--line:#28312C;
+    --accent:#8EC6AF;--accent-ink:#0E1512;--accent-soft:#1B2A23;--track:#252E29;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101512;--surface:#171D1A;--ink:#E5EBE7;--muted:#9AA79F;--line:#28312C;
+  --accent:#8EC6AF;--accent-ink:#0E1512;--accent-soft:#1B2A23;--track:#252E29;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+::selection{background:var(--accent-soft)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px;flex-wrap:wrap}
+.brand{font-family:var(--font-display);font-size:1.25rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;margin-right:auto;white-space:nowrap}
+.nav{display:flex;gap:2px;flex-wrap:wrap}
+.nav a{font-size:.875rem;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:999px;transition:color 150ms ease,background-color 150ms ease}
+.nav a[aria-current="true"]{color:var(--ink);background:var(--accent-soft)}
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:var(--ink)}}
+
+/* Segmented language switch, clip-path technique */
+.seg{position:relative;display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.seg-row{display:flex}
+.seg button,.seg .seg-active span{font:500 .75rem/1 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 11px;border-radius:999px}
+.seg button{background:none;border:0;color:var(--muted);cursor:pointer;transition:transform 160ms ease-out}
+.seg button:active{transform:scale(.97)}
+.seg-active{position:absolute;inset:3px;display:flex;pointer-events:none;background:var(--accent);border-radius:999px;transition:clip-path 220ms var(--ease-out)}
+.seg-active span{color:var(--accent-ink)}
+
+@media (max-width:860px){
+  .top .wrap{gap:10px}
+  .nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;margin-inline:-6px}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{white-space:nowrap}
+}
+
+/* Content swap on language change */
+main{transition:opacity 140ms ease,filter 140ms ease}
+main.swapping{opacity:.35;filter:blur(2px)}
+@media (prefers-reduced-motion:reduce){main.swapping{filter:none}}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:56px;align-items:start;padding-block:64px 56px}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:6px;background:var(--accent);position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait .mono{position:absolute;left:22px;bottom:16px;font-family:var(--font-display);font-style:italic;font-size:5.5rem;line-height:1;color:var(--accent-ink);letter-spacing:-.03em}
+.portrait canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
+.eyebrow{font:500 .75rem/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2.6rem,6vw,4.2rem);line-height:1.02;letter-spacing:-.025em;margin:0 0 20px;text-wrap:balance}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:1.125rem;max-width:62ch;margin:0 0 22px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
+.chip{font-size:.8125rem;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 .9rem/1 var(--font-body);padding:11px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer;transition:transform 160ms ease-out,background-color 150ms ease,border-color 150ms ease}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{border-color:var(--muted)}
+  .btn.primary:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 88%,var(--ink))}
+}
+.btn svg{width:16px;height:16px;flex:none}
+.btn.small{padding:9px 14px;font-size:.85rem}
+
+/* Load choreography: rare, first view only */
+.rise{animation:rise 520ms var(--ease-out) both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+@media (prefers-reduced-motion:reduce){.rise{animation:fade 300ms ease both}@keyframes fade{from{opacity:0}}}
+
+/* Sections */
+section.block{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:40px;padding-block:48px;border-top:1px solid var(--line)}
+section.block h2{font-family:var(--font-display);font-weight:400;font-size:1.75rem;line-height:1.15;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.block-body{min-width:0;display:grid;gap:30px}
+.block-body p{margin:0;max-width:65ch}
+.group{display:grid;gap:12px;min-width:0}
+.mono-label{font:500 .75rem/1.4 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h3{font-family:var(--font-display);font-weight:500;font-size:1.3rem;line-height:1.25;margin:0;text-wrap:balance}
+
+.kv{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 18px;margin:4px 0 0}
+.kv dt{font:500 .75rem/1.9 var(--font-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.kv dd{margin:0}
+
+/* Paper card */
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px;display:grid;gap:12px;box-shadow:var(--shadow)}
+.paper .authors{color:var(--muted);margin:0}
+.paper .series{font:400 .8125rem/1.5 var(--font-mono);color:var(--muted)}
+.paper .actions{gap:8px}
+.reveal{display:grid;grid-template-rows:0fr;transition:grid-template-rows 240ms var(--ease-out)}
+.reveal[data-open="true"]{grid-template-rows:1fr}
+.reveal>div{overflow:hidden;min-height:0}
+.reveal-inner{opacity:0;transition:opacity 200ms ease}
+.reveal[data-open="true"] .reveal-inner{opacity:1}
+.cite-inner{border-top:1px dashed var(--line);margin-top:6px;padding-top:14px;display:grid;gap:10px}
+.cite-tabs{display:flex;gap:6px}
+.cite-tabs button{font:500 .75rem/1 var(--font-mono);letter-spacing:.05em;text-transform:uppercase;padding:7px 10px;border-radius:6px;border:1px solid var(--line);background:none;color:var(--muted);cursor:pointer;transition:transform 160ms ease-out,color 150ms ease,background-color 150ms ease}
+.cite-tabs button:active{transform:scale(.97)}
+.cite-tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--ink);border-color:transparent}
+pre.ref{margin:0;font:400 .8125rem/1.6 var(--font-mono);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 14px;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+
+/* Rows (dated lists) */
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row:first-child{padding-top:4px}
+.row:last-child{border-bottom:0}
+.when{font:500 .8125rem/1.75 var(--font-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.row .what{margin:0;min-width:0}
+.row .sub{color:var(--muted);margin:2px 0 0;font-size:.9375rem}
+.tag{display:inline-block;font:500 .6875rem/1 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);vertical-align:2px;margin-left:6px}
+
+/* Education entries */
+.entry{display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+.entry:first-child{padding-top:0}
+.entry:last-child{border-bottom:0}
+.entry .where{color:var(--muted);margin:2px 0 0}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none}
+.fact{font:500 .75rem/1 var(--font-mono);letter-spacing:.03em;padding:6px 9px;border-radius:999px;background:var(--accent-soft);color:var(--ink);font-variant-numeric:tabular-nums}
+details.more{margin-top:12px}
+details.more summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:6px;font-size:.875rem;color:var(--accent);font-weight:500}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary svg{width:14px;height:14px;transition:transform 200ms var(--ease-out)}
+details.more[open] summary svg{transform:rotate(90deg)}
+.more-body{margin:10px 0 0;padding-left:20px;border-left:2px solid var(--line);display:grid;gap:8px;font-size:.9375rem}
+.more-body p{margin:0}
+.more-body .lbl{display:block;font:500 .6875rem/1.6 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.thesis{font-family:var(--font-display);font-style:italic;font-size:1.05rem}
+
+/* Skills: CEFR scale and proficiency dots */
+.langs{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.lang{display:grid;grid-template-columns:110px minmax(0,1fr) max-content;gap:16px;align-items:center}
+.lang-name{font-weight:500}
+.cefr{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+.cefr span{height:8px;border-radius:2px;background:var(--track)}
+.cefr span.on{background:var(--accent)}
+.cefr-axis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;font:400 .6875rem/1 var(--font-mono);color:var(--muted);text-align:center}
+.lang-level{font:500 .8125rem/1.3 var(--font-mono);color:var(--muted);text-align:right}
+.axis-row{display:grid;grid-template-columns:110px minmax(0,1fr) max-content;gap:16px}
+.code{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.code li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.code .nm{font-weight:500}
+.dots{display:flex;gap:4px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--track)}
+.dots i.on{background:var(--accent)}
+.code .lv{font:400 .75rem/1 var(--font-mono);color:var(--muted)}
+.code .right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.interests{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+
+/* Contact and references */
+.contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.email{font-family:var(--font-mono);font-size:1rem;user-select:all;padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);overflow-wrap:anywhere}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.refs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-top:14px}
+.refcard{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:16px;display:grid;gap:4px;align-content:start;min-width:0}
+.refcard strong{font-family:var(--font-display);font-weight:500;font-size:1.1rem}
+.refcard .r-role{color:var(--muted);font-size:.875rem}
+.refcard .r-mail{font:400 .8125rem/1.4 var(--font-mono);overflow-wrap:anywhere;margin-top:6px}
+
+footer{border-top:1px solid var(--line);padding-block:28px 40px;color:var(--muted);font-size:.8125rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* Toast: enters and leaves through the same bottom edge */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,calc(100% + 28px));opacity:0;background:var(--ink);color:var(--paper);font-size:.875rem;font-weight:500;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);transition:transform 380ms ease,opacity 300ms ease;z-index:20;pointer-events:none;max-width:calc(100vw - 32px);text-align:center}
+.toast[data-show="true"]{transform:translate(-50%,0);opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transform:translate(-50%,0)}}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:28px;padding-block:36px}
+  .portrait{max-width:220px}
+  .portrait .mono{font-size:4.2rem}
+  section.block{grid-template-columns:minmax(0,1fr);gap:18px;padding-block:36px}
+  .entry,.row{grid-template-columns:minmax(0,1fr);gap:2px}
+  .refs{grid-template-columns:minmax(0,1fr)}
+  .lang,.axis-row{grid-template-columns:80px minmax(0,1fr);gap:12px}
+  .lang-level{grid-column:2;text-align:left;margin-top:-6px}
+  .axis-row>span:last-child{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#about">Arlet Vila-Bagaria</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#research" data-i18n="nav.research">Research</a>
+      <a href="#teaching" data-i18n="nav.teaching">Teaching</a>
+      <a href="#education" data-i18n="nav.education">Education</a>
+      <a href="#activities" data-i18n="nav.activities">Activities</a>
+      <a href="#skills" data-i18n="nav.skills">Skills</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="seg" role="group" aria-label="Language" data-i18n-attr="aria-label:lang.label">
+      <div class="seg-row">
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
+        <button type="button" id="lang-nl" data-lang="nl" aria-pressed="false" lang="nl" title="Nederlands">NL</button>
+        <button type="button" id="lang-ca" data-lang="ca" aria-pressed="false" lang="ca" title="Català">CA</button>
+      </div>
+      <div class="seg-active" aria-hidden="true"><span>EN</span><span>NL</span><span>CA</span></div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <section class="hero" id="about" aria-labelledby="name">
+      <div class="portrait rise" style="animation-delay:0ms">
+        <!-- To use a photo: add <img src="data:image/jpeg;base64,..." alt="Portrait of Arlet Vila-Bagaria"> here -->
+        <canvas id="field" aria-hidden="true"></canvas>
+        <span class="mono" aria-hidden="true">avb</span>
+      </div>
+      <div>
+        <p class="eyebrow rise" style="animation-delay:40ms" data-i18n="hero.eyebrow">PhD Candidate · Economics</p>
+        <h1 id="name" class="rise" style="animation-delay:80ms">Arlet <em>Vila</em>-Bagaria</h1>
+        <p class="lede rise" style="animation-delay:120ms" data-i18n="hero.lede"></p>
+        <ul class="meta rise" style="animation-delay:160ms">
+          <li class="chip" data-i18n="chip.env">Environmental economics</li>
+          <li class="chip" data-i18n="chip.micro">Applied microeconometrics</li>
+          <li class="chip" data-i18n="chip.empirical">Empirical economic analysis</li>
+          <li class="chip" data-i18n="chip.policy">Policy evaluation</li>
+        </ul>
+        <div class="actions rise" style="animation-delay:200ms">
+          <button class="btn primary" type="button" id="copy-email-hero">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.75" y="3.25" width="12.5" height="9.5" rx="1.5"/><path d="m2.5 4.5 5.5 4 5.5-4"/></svg>
+            <span data-i18n="btn.copyEmail">Copy email</span>
+          </button>
+          <a class="btn" href="https://www.linkedin.com/in/arlet-vila-bagaria-988108226/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://www.uu.nl/staff/AVilaBagaria" target="_blank" rel="noopener" data-i18n="btn.staff">Utrecht University profile</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section class="block" id="research" aria-labelledby="h-research">
+      <h2 id="h-research" data-i18n="research.title">Research</h2>
+      <div class="block-body">
+        <div class="group">
+          <span class="mono-label" data-i18n="research.currentLabel">PhD project · 2025 to 2029</span>
+          <h3 data-i18n="research.projectTitle"></h3>
+          <p data-i18n="research.projectText"></p>
+        </div>
+
+        <article class="paper" aria-labelledby="paper-title">
+          <span class="mono-label" data-i18n="research.wpLabel">Working paper · June 2026</span>
+          <h3 id="paper-title">On the Effectiveness of the EU ETS</h3>
+          <p class="authors">Arlet Vila-Bagaria, Jaume Freire-González</p>
+          <span class="series">BSE Working Paper No. 1581 · Barcelona School of Economics</span>
+          <div class="actions">
+            <a class="btn small" href="https://bw.bse.eu/wp-content/uploads/1581_Compressed.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9.5 1.75h-5a1.5 1.5 0 0 0-1.5 1.5v9.5a1.5 1.5 0 0 0 1.5 1.5h7a1.5 1.5 0 0 0 1.5-1.5V5.25z"/><path d="M9.25 1.75v3.75H13"/></svg>
+              <span data-i18n="btn.readPdf">Read the paper (PDF)</span>
+            </a>
+            <button class="btn small" type="button" id="cite-toggle" aria-expanded="false" aria-controls="cite-panel">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9.5c0-2.5 1.2-4.2 3-5M9 9.5c0-2.5 1.2-4.2 3-5"/><circle cx="4.5" cy="10.5" r="2"/><circle cx="10.5" cy="10.5" r="2"/></svg>
+              <span data-i18n="btn.cite">Cite</span>
+            </button>
+          </div>
+          <div class="reveal" id="cite-panel" data-open="false">
+            <div>
+              <div class="reveal-inner cite-inner">
+                <div class="cite-tabs" role="tablist" aria-label="Citation format">
+                  <button type="button" role="tab" id="tab-apa" aria-selected="true" data-fmt="apa">APA</button>
+                  <button type="button" role="tab" id="tab-bib" aria-selected="false" data-fmt="bib">BibTeX</button>
+                </div>
+                <pre class="ref" id="ref-text" role="tabpanel"></pre>
+                <div><button class="btn small" type="button" id="copy-ref"><span data-i18n="btn.copyRef">Copy citation</span></button></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="group">
+          <span class="mono-label" data-i18n="research.wipLabel">Work in progress · expected year</span>
+          <ol class="rows">
+            <li class="row"><span class="when">2027</span><p class="what">Household Responses to Extreme Energy Price Shocks</p></li>
+            <li class="row"><span class="when">2027</span><p class="what">Adoption of Green Technology and Energy Independence</p></li>
+            <li class="row"><span class="when">2028</span><p class="what">IKC–ETS Overlapping Policies</p></li>
+            <li class="row"><span class="when">2029</span><p class="what">From Crisis Estimates to Future Policy</p></li>
+          </ol>
+        </div>
+
+        <div class="group">
+          <span class="mono-label" data-i18n="research.talksLabel">Presentations</span>
+          <ol class="rows">
+            <li class="row"><span class="when">2026</span><div><p class="what">Household Workshop with CBS Data</p><p class="sub">Utrecht University School of Economics, Utrecht</p></div></li>
+            <li class="row"><span class="when">2026</span><div><p class="what" data-i18n="talk.proposal">PhD proposal seminar</p><p class="sub" data-i18n="place.pbl">PBL Netherlands Environmental Assessment Agency, The Hague</p></div></li>
+            <li class="row"><span class="when">2025</span><div><p class="what" data-i18n="talk.lunch">Lunch lecture</p><p class="sub" data-i18n="place.pbl">PBL Netherlands Environmental Assessment Agency, The Hague</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEACHING -->
+    <section class="block" id="teaching" aria-labelledby="h-teaching">
+      <h2 id="h-teaching" data-i18n="teaching.title">Teaching</h2>
+      <div class="block-body">
+        <ol class="rows">
+          <li class="row"><span class="when">2027</span><div><p class="what"><span data-i18n="teaching.eep">Environmental Economics and Policy</span><span class="tag" data-i18n="tag.master">Master</span></p><p class="sub" data-i18n="teaching.tutor">Tutorial teacher · Utrecht University</p></div></li>
+          <li class="row"><span class="when">2027</span><div><p class="what"><span data-i18n="teaching.thesis">Thesis supervision</span><span class="tag" data-i18n="tag.bachelor">Bachelor</span></p><p class="sub">Utrecht University</p></div></li>
+          <li class="row"><span class="when">2025</span><div><p class="what"><span data-i18n="teaching.metrics">Econometrics</span><span class="tag" data-i18n="tag.bachelor">Bachelor</span></p><p class="sub" data-i18n="teaching.tutor">Tutorial teacher · Utrecht University</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="block" id="education" aria-labelledby="h-education">
+      <h2 id="h-education" data-i18n="edu.title">Education</h2>
+      <div class="block-body">
+        <ol class="rows" style="display:grid">
+          <li class="entry">
+            <span class="when">2025–29</span>
+            <div>
+              <h3 data-i18n="edu.phd">PhD in Economics</h3>
+              <p class="where">Utrecht University School of Economics &amp; PBL Netherlands Environmental Assessment Agency</p>
+              <ul class="facts"><li class="fact" data-i18n="edu.expected">Expected 2029</li><li class="fact">Utrecht, NL</li></ul>
+              <details class="more">
+                <summary><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="m6 3.5 4.5 4.5L6 12.5"/></svg><span data-i18n="edu.advisors">Advisors</span></summary>
+                <div class="more-body"><p>Dr. Inge van den Bijgaart · Prof. dr. Ulrich Zierahn-Weilage · Dr. Jetske Bouma</p></div>
+              </details>
+            </div>
+          </li>
+          <li class="entry">
+            <span class="when">2023–25</span>
+            <div>
+              <h3 data-i18n="edu.mres">MRes IDEA, Master of Research in Economic Analysis</h3>
+              <p class="where">Universitat Autònoma de Barcelona, Institut d'Anàlisi Econòmica &amp; Barcelona School of Economics</p>
+              <ul class="facts"><li class="fact">GPA 9.1 / 10</li><li class="fact">Barcelona, ES</li></ul>
+              <details class="more">
+                <summary><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="m6 3.5 4.5 4.5L6 12.5"/></svg><span data-i18n="edu.thesisToggle">Master thesis</span></summary>
+                <div class="more-body">
+                  <p class="thesis">Assessing the Effectiveness of the EU Emissions Trading System: A Staggered Difference-in-Differences Analysis of CO₂ Emissions in the Energy Sector</p>
+                  <p><span class="lbl" data-i18n="edu.supervisor">Supervisor</span>Prof. Jaume Freire-González</p>
+                </div>
+              </details>
+            </div>
+          </li>
+          <li class="entry">
+            <span class="when">2019–23</span>
+            <div>
+              <h3 data-i18n="edu.ba">Bachelor's degree in Economics</h3>
+              <p class="where">Universitat Pompeu Fabra</p>
+              <ul class="facts"><li class="fact">GPA 8.12 / 10</li><li class="fact" data-i18n="edu.top10">Top 10 of the programme</li><li class="fact">Barcelona, ES</li></ul>
+              <details class="more">
+                <summary><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="m6 3.5 4.5 4.5L6 12.5"/></svg><span data-i18n="edu.thesisExchange">Bachelor thesis and exchange</span></summary>
+                <div class="more-body">
+                  <p class="thesis">The role of cooperation in public goods games: implications for climate change mitigation</p>
+                  <p><span class="lbl" data-i18n="edu.supervisor">Supervisor</span>Prof. Fabrizio Germano</p>
+                  <p><span class="lbl" data-i18n="edu.exchangeLbl">Erasmus+ International · Jul–Dec 2022</span>The University of Adelaide, Australia</p>
+                </div>
+              </details>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ACTIVITIES -->
+    <section class="block" id="activities" aria-labelledby="h-activities">
+      <h2 id="h-activities" data-i18n="act.title">Awards and activities</h2>
+      <div class="block-body">
+        <div class="group">
+          <span class="mono-label" data-i18n="act.awardsLabel">Awards and funding</span>
+          <ol class="rows">
+            <li class="row"><span class="when">2024–25</span><div><p class="what" data-i18n="act.fellowship">PhD Track Fellowship</p><p class="sub" data-i18n="act.fellowshipSub">Funding awarded by the Barcelona School of Economics to top students in the Master in Economic Analysis</p></div></li>
+            <li class="row"><span class="when">2023</span><div><p class="what" data-i18n="act.top10">Top 10 academic record award</p><p class="sub" data-i18n="act.top10Sub">Bachelor's degree in Economics, Universitat Pompeu Fabra, class of 2022–23</p></div></li>
+          </ol>
+        </div>
+        <div class="group">
+          <span class="mono-label" data-i18n="act.orgLabel">Organisation</span>
+          <ol class="rows">
+            <li class="row"><span class="when">2026</span><div><p class="what" data-i18n="act.org">Organiser of the Household Workshop with CBS Data</p><p class="sub">Utrecht University</p></div></li>
+          </ol>
+        </div>
+        <div class="group">
+          <span class="mono-label" data-i18n="act.trainingLabel">Additional training</span>
+          <ol class="rows">
+            <li class="row"><span class="when">15 h</span><div><p class="what">Start to Teach</p><p class="sub">Utrecht University</p></div></li>
+            <li class="row"><span class="when">4 h</span><div><p class="what" data-i18n="act.ai">AI Literacy Workshop</p><p class="sub">Utrecht University</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="block" id="skills" aria-labelledby="h-skills">
+      <h2 id="h-skills" data-i18n="skills.title">Skills</h2>
+      <div class="block-body">
+        <div class="group">
+          <span class="mono-label" data-i18n="skills.langLabel">Languages · CEFR scale</span>
+          <ul class="langs" id="langs"></ul>
+          <div class="axis-row" aria-hidden="true"><span></span><div class="cefr-axis"><span>A1</span><span>A2</span><span>B1</span><span>B2</span><span>C1</span><span>C2</span></div><span></span></div>
+        </div>
+        <div class="group">
+          <span class="mono-label" data-i18n="skills.codeLabel">Software and programming</span>
+          <ul class="code" id="code"></ul>
+        </div>
+        <div class="group">
+          <span class="mono-label" data-i18n="skills.beyondLabel">Beyond research</span>
+          <p data-i18n="skills.instagram"></p>
+          <ul class="interests">
+            <li class="chip" data-i18n="int.ceramics">Ceramics</li>
+            <li class="chip" data-i18n="int.baking">Baking</li>
+            <li class="chip" data-i18n="int.reading">Reading</li>
+            <li class="chip" data-i18n="int.crafts">Crafts</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="block" id="contact" aria-labelledby="h-contact">
+      <h2 id="h-contact" data-i18n="contact.title">Contact</h2>
+      <div class="block-body">
+        <div class="group">
+          <p data-i18n="contact.text"></p>
+          <div class="contact-row">
+            <span class="email" id="email">a.vilabagaria@uu.nl</span>
+            <button class="btn primary" type="button" id="copy-email"><span data-i18n="btn.copy">Copy</span></button>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://www.linkedin.com/in/arlet-vila-bagaria-988108226/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="https://www.uu.nl/staff/AVilaBagaria" target="_blank" rel="noopener" data-i18n="btn.staff">Utrecht University profile</a>
+          </div>
+        </div>
+        <div class="group">
+          <div><button class="btn" type="button" id="refs-toggle" aria-expanded="false" aria-controls="refs-panel"><span data-i18n="btn.refsShow">Show references</span></button></div>
+          <div class="reveal" id="refs-panel" data-open="false">
+            <div>
+              <div class="reveal-inner refs">
+                <div class="refcard"><strong>Inge van den Bijgaart</strong><span class="r-role" data-i18n="ref.assoc">Associate Professor</span><span class="r-role">Utrecht University School of Economics</span><span class="r-mail">i.m.vandenbijgaart@uu.nl</span></div>
+                <div class="refcard"><strong>Ulrich Zierahn-Weilage</strong><span class="r-role" data-i18n="ref.full">Full Professor</span><span class="r-role">Utrecht University School of Economics</span><span class="r-mail">u.t.zierahn-weilage@uu.nl</span></div>
+                <div class="refcard"><strong>Jetske Bouma</strong><span class="r-role" data-i18n="ref.senior">Senior Environmental Economist</span><span class="r-role">PBL Netherlands Environmental Assessment Agency</span><span class="r-mail">jetske.bouma@pbl.nl</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Arlet Vila-Bagaria</span>
+    <span data-i18n="footer.updated">Last updated November 2026</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var I18N = {
+    en:{
+      "lang.label":"Language",
+      "nav.about":"About","nav.research":"Research","nav.teaching":"Teaching","nav.education":"Education","nav.activities":"Activities","nav.skills":"Skills","nav.contact":"Contact",
+      "hero.eyebrow":"PhD Candidate · Economics",
+      "hero.lede":"I am a PhD candidate at the Utrecht University School of Economics and PBL Netherlands Environmental Assessment Agency. I use applied microeconometrics to evaluate climate and energy policy, with a focus on how well policy packages move the economy toward net zero.",
+      "chip.env":"Environmental economics","chip.micro":"Applied microeconometrics","chip.empirical":"Empirical economic analysis","chip.policy":"Policy evaluation",
+      "btn.copyEmail":"Copy email","btn.staff":"Utrecht University profile","btn.readPdf":"Read the paper (PDF)","btn.cite":"Cite","btn.citeHide":"Hide citation","btn.copyRef":"Copy citation","btn.copy":"Copy","btn.refsShow":"Show references","btn.refsHide":"Hide references",
+      "research.title":"Research","research.currentLabel":"PhD project · 2025 to 2029",
+      "research.projectTitle":"The effectiveness of climate policy packages in the transition to a net-zero economy",
+      "research.projectText":"My thesis quantifies how effective climate policy packages are in driving the transition to net zero. I want it to improve our understanding of climate policymaking and to inform the design of future policy packages directly.",
+      "research.wpLabel":"Working paper · June 2026","research.wipLabel":"Work in progress · expected year","research.talksLabel":"Presentations",
+      "talk.proposal":"PhD proposal seminar","talk.lunch":"Lunch lecture","place.pbl":"PBL Netherlands Environmental Assessment Agency, The Hague",
+      "teaching.title":"Teaching","teaching.eep":"Environmental Economics and Policy","teaching.thesis":"Thesis supervision","teaching.metrics":"Econometrics","teaching.tutor":"Tutorial teacher · Utrecht University",
+      "tag.master":"Master","tag.bachelor":"Bachelor",
+      "edu.title":"Education","edu.phd":"PhD in Economics","edu.expected":"Expected 2029","edu.advisors":"Advisors",
+      "edu.mres":"MRes IDEA, Master of Research in Economic Analysis","edu.thesisToggle":"Master thesis","edu.supervisor":"Supervisor",
+      "edu.ba":"Bachelor's degree in Economics","edu.top10":"Top 10 of the programme","edu.thesisExchange":"Bachelor thesis and exchange","edu.exchangeLbl":"Erasmus+ International · Jul–Dec 2022",
+      "act.title":"Awards and activities","act.awardsLabel":"Awards and funding","act.fellowship":"PhD Track Fellowship",
+      "act.fellowshipSub":"Funding awarded by the Barcelona School of Economics to top students in the Master in Economic Analysis",
+      "act.top10":"Top 10 academic record award","act.top10Sub":"Bachelor's degree in Economics, Universitat Pompeu Fabra, class of 2022–23",
+      "act.orgLabel":"Organisation","act.org":"Organiser of the Household Workshop with CBS Data","act.trainingLabel":"Additional training","act.ai":"AI Literacy Workshop",
+      "skills.title":"Skills","skills.langLabel":"Languages · CEFR scale","skills.codeLabel":"Software and programming","skills.beyondLabel":"Beyond research",
+      "skills.instagram":"I run the Instagram account of Autoescola Osona, a driving school in Catalonia.",
+      "int.ceramics":"Ceramics","int.baking":"Baking","int.reading":"Reading","int.crafts":"Crafts",
+      "l.ca":"Catalan","l.es":"Spanish","l.en":"English","l.nl":"Dutch","l.fr":"French",
+      "lv.native":"Native","lv.en":"Fluent · C1","lv.nl":"B2 · following C1 courses","lv.fr":"B1",
+      "p.adv":"Advanced","p.int":"Intermediate","p.basic":"Basic",
+      "contact.title":"Contact","contact.text":"For research questions, collaborations or teaching matters, write to me at my university address.",
+      "ref.assoc":"Associate Professor","ref.full":"Full Professor","ref.senior":"Senior Environmental Economist",
+      "footer.updated":"Last updated November 2026",
+      "toast.email":"Email address copied","toast.ref":"Citation copied","toast.fail":"Select the text to copy it manually"
+    },
+    nl:{
+      "lang.label":"Taal",
+      "nav.about":"Over mij","nav.research":"Onderzoek","nav.teaching":"Onderwijs","nav.education":"Opleiding","nav.activities":"Activiteiten","nav.skills":"Vaardigheden","nav.contact":"Contact",
+      "hero.eyebrow":"Promovendus · Economie",
+      "hero.lede":"Ik ben promovendus aan de Utrecht University School of Economics en het Planbureau voor de Leefomgeving (PBL). Met toegepaste micro-econometrie evalueer ik klimaat- en energiebeleid, met de nadruk op hoe goed beleidspakketten de economie richting netto nul brengen.",
+      "chip.env":"Milieueconomie","chip.micro":"Toegepaste micro-econometrie","chip.empirical":"Empirische economische analyse","chip.policy":"Beleidsevaluatie",
+      "btn.copyEmail":"E-mailadres kopiëren","btn.staff":"Profiel Universiteit Utrecht","btn.readPdf":"Lees het paper (PDF)","btn.cite":"Citeren","btn.citeHide":"Citatie verbergen","btn.copyRef":"Citatie kopiëren","btn.copy":"Kopiëren","btn.refsShow":"Referenties tonen","btn.refsHide":"Referenties verbergen",
+      "research.title":"Onderzoek","research.currentLabel":"Promotieonderzoek · 2025 tot 2029",
+      "research.projectTitle":"De effectiviteit van klimaatbeleidspakketten in de transitie naar een netto-nul-economie",
+      "research.projectText":"Mijn proefschrift kwantificeert hoe effectief klimaatbeleidspakketten de transitie naar netto nul aandrijven. Ik wil daarmee het begrip van klimaatbeleid vergroten en direct bijdragen aan het ontwerp van toekomstige beleidspakketten.",
+      "research.wpLabel":"Working paper · juni 2026","research.wipLabel":"Lopend onderzoek · verwacht jaar","research.talksLabel":"Presentaties",
+      "talk.proposal":"Seminar promotievoorstel","talk.lunch":"Lunchlezing","place.pbl":"Planbureau voor de Leefomgeving (PBL), Den Haag",
+      "teaching.title":"Onderwijs","teaching.eep":"Environmental Economics and Policy","teaching.thesis":"Scriptiebegeleiding","teaching.metrics":"Econometrie","teaching.tutor":"Werkgroepdocent · Universiteit Utrecht",
+      "tag.master":"Master","tag.bachelor":"Bachelor",
+      "edu.title":"Opleiding","edu.phd":"Promotie in de Economie","edu.expected":"Verwacht 2029","edu.advisors":"Begeleiders",
+      "edu.mres":"MRes IDEA, Research Master in Economische Analyse","edu.thesisToggle":"Masterscriptie","edu.supervisor":"Begeleider",
+      "edu.ba":"Bachelor Economie","edu.top10":"Top 10 van de opleiding","edu.thesisExchange":"Bachelorscriptie en uitwisseling","edu.exchangeLbl":"Erasmus+ International · jul–dec 2022",
+      "act.title":"Prijzen en activiteiten","act.awardsLabel":"Prijzen en financiering","act.fellowship":"PhD Track Fellowship",
+      "act.fellowshipSub":"Financiering van de Barcelona School of Economics voor de beste studenten van de Master in Economic Analysis",
+      "act.top10":"Erkenning top 10 studieresultaten","act.top10Sub":"Bachelor Economie, Universitat Pompeu Fabra, lichting 2022–23",
+      "act.orgLabel":"Organisatie","act.org":"Organisator van de Household Workshop with CBS Data","act.trainingLabel":"Aanvullende training","act.ai":"Workshop AI-geletterdheid",
+      "skills.title":"Vaardigheden","skills.langLabel":"Talen · ERK-niveau","skills.codeLabel":"Software en programmeren","skills.beyondLabel":"Naast het onderzoek",
+      "skills.instagram":"Ik beheer het Instagram-account van Autoescola Osona, een rijschool in Catalonië.",
+      "int.ceramics":"Keramiek","int.baking":"Bakken","int.reading":"Lezen","int.crafts":"Handwerk",
+      "l.ca":"Catalaans","l.es":"Spaans","l.en":"Engels","l.nl":"Nederlands","l.fr":"Frans",
+      "lv.native":"Moedertaal","lv.en":"Vloeiend · C1","lv.nl":"B2 · volgt C1-cursussen","lv.fr":"B1",
+      "p.adv":"Gevorderd","p.int":"Gemiddeld","p.basic":"Basis",
+      "contact.title":"Contact","contact.text":"Voor vragen over onderzoek, samenwerking of onderwijs kunt u mij mailen op mijn universiteitsadres.",
+      "ref.assoc":"Universitair hoofddocent","ref.full":"Hoogleraar","ref.senior":"Senior milieueconoom",
+      "footer.updated":"Laatst bijgewerkt in november 2026",
+      "toast.email":"E-mailadres gekopieerd","toast.ref":"Citatie gekopieerd","toast.fail":"Selecteer de tekst om hem handmatig te kopiëren"
+    },
+    ca:{
+      "lang.label":"Idioma",
+      "nav.about":"Sobre mi","nav.research":"Recerca","nav.teaching":"Docència","nav.education":"Formació","nav.activities":"Activitats","nav.skills":"Competències","nav.contact":"Contacte",
+      "hero.eyebrow":"Doctoranda · Economia",
+      "hero.lede":"Soc doctoranda a la Utrecht University School of Economics i a l'Agència Neerlandesa d'Avaluació Ambiental (PBL). Faig servir la microeconometria aplicada per avaluar polítiques climàtiques i energètiques, i em centro en com de bé els paquets de política fan avançar l'economia cap a les zero emissions netes.",
+      "chip.env":"Economia ambiental","chip.micro":"Microeconometria aplicada","chip.empirical":"Anàlisi econòmica empírica","chip.policy":"Avaluació de polítiques",
+      "btn.copyEmail":"Copia el correu","btn.staff":"Perfil a la Universitat d'Utrecht","btn.readPdf":"Llegeix l'article (PDF)","btn.cite":"Cita","btn.citeHide":"Amaga la cita","btn.copyRef":"Copia la cita","btn.copy":"Copia","btn.refsShow":"Mostra les referències","btn.refsHide":"Amaga les referències",
+      "research.title":"Recerca","research.currentLabel":"Projecte de doctorat · 2025 a 2029",
+      "research.projectTitle":"L'efectivitat dels paquets de política climàtica en la transició cap a una economia de zero emissions netes",
+      "research.projectText":"La meva tesi quantifica l'efectivitat dels paquets de política climàtica per impulsar la transició cap a les zero emissions netes. Vull que ajudi a entendre millor la presa de decisions en política climàtica i que contribueixi directament al disseny de futurs paquets de política.",
+      "research.wpLabel":"Document de treball · juny de 2026","research.wipLabel":"Recerca en curs · any previst","research.talksLabel":"Presentacions",
+      "talk.proposal":"Seminari de proposta de tesi","talk.lunch":"Conferència de migdia","place.pbl":"Agència Neerlandesa d'Avaluació Ambiental (PBL), la Haia",
+      "teaching.title":"Docència","teaching.eep":"Environmental Economics and Policy","teaching.thesis":"Direcció de treballs de fi de grau","teaching.metrics":"Econometria","teaching.tutor":"Professora de seminaris · Universitat d'Utrecht",
+      "tag.master":"Màster","tag.bachelor":"Grau",
+      "edu.title":"Formació","edu.phd":"Doctorat en Economia","edu.expected":"Previst el 2029","edu.advisors":"Direcció",
+      "edu.mres":"MRes IDEA, Màster de Recerca en Anàlisi Econòmica","edu.thesisToggle":"Treball de fi de màster","edu.supervisor":"Director",
+      "edu.ba":"Grau en Economia","edu.top10":"Top 10 de la promoció","edu.thesisExchange":"Treball de fi de grau i intercanvi","edu.exchangeLbl":"Erasmus+ Internacional · jul–des 2022",
+      "act.title":"Premis i activitats","act.awardsLabel":"Premis i finançament","act.fellowship":"PhD Track Fellowship",
+      "act.fellowshipSub":"Finançament de la Barcelona School of Economics per als millors estudiants del Màster en Anàlisi Econòmica",
+      "act.top10":"Distinció als 10 millors expedients","act.top10Sub":"Grau en Economia, Universitat Pompeu Fabra, promoció 2022–23",
+      "act.orgLabel":"Organització","act.org":"Organitzadora del Household Workshop with CBS Data","act.trainingLabel":"Formació complementària","act.ai":"Taller d'alfabetització en IA",
+      "skills.title":"Competències","skills.langLabel":"Idiomes · escala MECR","skills.codeLabel":"Programari i programació","skills.beyondLabel":"Més enllà de la recerca",
+      "skills.instagram":"Gestiono el compte d'Instagram d'Autoescola Osona.",
+      "int.ceramics":"Ceràmica","int.baking":"Rebosteria","int.reading":"Lectura","int.crafts":"Manualitats",
+      "l.ca":"Català","l.es":"Castellà","l.en":"Anglès","l.nl":"Neerlandès","l.fr":"Francès",
+      "lv.native":"Llengua materna","lv.en":"Fluid · C1","lv.nl":"B2 · cursant C1","lv.fr":"B1",
+      "p.adv":"Avançat","p.int":"Intermedi","p.basic":"Bàsic",
+      "contact.title":"Contacte","contact.text":"Per a qüestions de recerca, col·laboracions o docència, escriu-me a la meva adreça de la universitat.",
+      "ref.assoc":"Professora titular","ref.full":"Catedràtic","ref.senior":"Economista ambiental sènior",
+      "footer.updated":"Darrera actualització: novembre de 2026",
+      "toast.email":"Adreça de correu copiada","toast.ref":"Cita copiada","toast.fail":"Selecciona el text per copiar-lo manualment"
+    }
+  };
+
+  var LANGS = [
+    {k:"l.ca", lvl:6, label:"lv.native"},
+    {k:"l.es", lvl:6, label:"lv.native"},
+    {k:"l.en", lvl:5, label:"lv.en"},
+    {k:"l.nl", lvl:4, label:"lv.nl"},
+    {k:"l.fr", lvl:3, label:"lv.fr"}
+  ];
+  var CODE = [
+    {n:"Stata", lvl:3},{n:"LaTeX", lvl:3},{n:"R", lvl:2},{n:"Python", lvl:1},{n:"MATLAB", lvl:1}
+  ];
+  var PLV = {3:"p.adv",2:"p.int",1:"p.basic"};
+
+  var REFS = {
+    apa:"Vila-Bagaria, A., & Freire-González, J. (2026, June 30). On the effectiveness of the EU ETS (BSE Working Paper No. 1581). Barcelona School of Economics.",
+    bib:"@techreport{VilaBagaria2026ETS,\n  author      = {Vila-Bagaria, Arlet and Freire-Gonz{\\'a}lez, Jaume},\n  title       = {On the Effectiveness of the {EU ETS}},\n  institution = {Barcelona School of Economics},\n  type        = {BSE Working Paper},\n  number      = {1581},\n  year        = {2026},\n  month       = jun\n}"
+  };
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var lang = "en";
+  try { var saved = localStorage.getItem("avb-lang"); if (saved && I18N[saved]) lang = saved; } catch(e){}
+  function t(key){ return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
+
+  var citeOpen = false, refsOpen = false, fmt = "apa";
+
+  function renderSkills(){
+    document.getElementById("langs").innerHTML = LANGS.map(function(l){
+      var cells = ""; for (var i = 1; i <= 6; i++) cells += '<span class="' + (i <= l.lvl ? "on" : "") + '"></span>';
+      var lvl = t(l.label);
+      return '<li class="lang"><span class="lang-name">' + t(l.k) + '</span><div class="cefr" role="img" aria-label="' + t(l.k) + ': ' + lvl + '">' + cells + '</div><span class="lang-level">' + lvl + '</span></li>';
+    }).join("");
+    document.getElementById("code").innerHTML = CODE.map(function(c){
+      var d = ""; for (var i = 1; i <= 3; i++) d += '<i class="' + (i <= c.lvl ? "on" : "") + '"></i>';
+      return '<li><span class="nm">' + c.n + '</span><span class="right"><span class="dots" aria-hidden="true">' + d + '</span><span class="lv">' + t(PLV[c.lvl]) + '</span></span></li>';
+    }).join("");
+  }
+
+  function applyText(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
+    document.querySelectorAll("[data-i18n-attr]").forEach(function(el){
+      var p = el.getAttribute("data-i18n-attr").split(":"); el.setAttribute(p[0], t(p[1]));
+    });
+    document.querySelector("#cite-toggle span").textContent = citeOpen ? t("btn.citeHide") : t("btn.cite");
+    document.querySelector("#refs-toggle span").textContent = refsOpen ? t("btn.refsHide") : t("btn.refsShow");
+    renderSkills();
+  }
+
+  /* Segmented control indicator via clip-path */
+  var seg = document.querySelector(".seg");
+  var active = seg.querySelector(".seg-active");
+  var buttons = Array.prototype.slice.call(seg.querySelectorAll("button[data-lang]"));
+  function moveIndicator(instant){
+    var btn = buttons.filter(function(b){ return b.dataset.lang === lang; })[0];
+    var w = active.offsetWidth;
+    var left = btn.offsetLeft - 3, right = w - (left + btn.offsetWidth);
+    if (instant) active.style.transition = "none";
+    active.style.clipPath = "inset(0 " + right + "px 0 " + left + "px round 999px)";
+    if (instant) { void active.offsetWidth; active.style.transition = ""; }
+    buttons.forEach(function(b){ b.setAttribute("aria-pressed", String(b === btn)); });
+  }
+
+  var main = document.getElementById("main");
+  function setLang(next){
+    if (next === lang) return;
+    lang = next;
+    try { localStorage.setItem("avb-lang", lang); } catch(e){}
+    moveIndicator(false);
+    main.classList.add("swapping");
+    setTimeout(function(){ applyText(); renderRef(); main.classList.remove("swapping"); }, reduce ? 0 : 140);
+  }
+  buttons.forEach(function(b){ b.addEventListener("click", function(){ setLang(b.dataset.lang); }); });
+  seg.addEventListener("keydown", function(e){
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    var i = buttons.indexOf(document.activeElement); if (i < 0) return;
+    var n = buttons[(i + (e.key === "ArrowRight" ? 1 : buttons.length - 1)) % buttons.length];
+    n.focus(); setLang(n.dataset.lang); e.preventDefault();
+  });
+
+  /* Toast */
+  var toast = document.getElementById("toast"), toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.setAttribute("data-show","true");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.setAttribute("data-show","false"); }, 2200);
+  }
+  function selectText(el){
+    var r = document.createRange(); r.selectNodeContents(el);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  function copy(text, okKey, fallbackEl){
+    var done = function(){ showToast(t(okKey)); };
+    var fail = function(){ selectText(fallbackEl); showToast(t("toast.fail")); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fail);
+      else fail();
+    } catch(e){ fail(); }
+  }
+  var emailEl = document.getElementById("email");
+  ["copy-email","copy-email-hero"].forEach(function(id){
+    document.getElementById(id).addEventListener("click", function(){ copy(emailEl.textContent.trim(), "toast.email", emailEl); });
+  });
+
+  /* Reveal panels: citation and references */
+  function wireReveal(btnId, panelId, showKey, hideKey, getter, setter){
+    var btn = document.getElementById(btnId), panel = document.getElementById(panelId);
+    btn.addEventListener("click", function(){
+      var open = !getter(); setter(open);
+      panel.setAttribute("data-open", String(open));
+      btn.setAttribute("aria-expanded", String(open));
+      btn.querySelector("span").textContent = open ? t(hideKey) : t(showKey);
+    });
+  }
+  wireReveal("cite-toggle","cite-panel","btn.cite","btn.citeHide",function(){return citeOpen;},function(v){citeOpen=v;});
+  wireReveal("refs-toggle","refs-panel","btn.refsShow","btn.refsHide",function(){return refsOpen;},function(v){refsOpen=v;});
+
+  var refEl = document.getElementById("ref-text");
+  function renderRef(){ refEl.textContent = REFS[fmt]; }
+  document.querySelectorAll(".cite-tabs button").forEach(function(b){
+    b.addEventListener("click", function(){
+      fmt = b.dataset.fmt;
+      document.querySelectorAll(".cite-tabs button").forEach(function(x){ x.setAttribute("aria-selected", String(x === b)); });
+      renderRef();
+    });
+  });
+  document.getElementById("copy-ref").addEventListener("click", function(){ copy(REFS[fmt], "toast.ref", refEl); });
+
+  /* Scroll spy for the section nav */
+  var links = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  function spy(){
+    var y = window.scrollY + 120, current = sections[0];
+    sections.forEach(function(s){ if (s.offsetTop <= y) current = s; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) current = sections[sections.length - 1];
+    links.forEach(function(a){
+      if (a.getAttribute("href") === "#" + current.id) a.setAttribute("aria-current","true"); else a.removeAttribute("aria-current");
+    });
+  }
+  window.addEventListener("scroll", spy, { passive:true });
+
+  /* Portrait field: slowly drifting contour lines that slope downward, like emissions pathways */
+  var cv = document.getElementById("field"), ctx = cv.getContext("2d"), tick = 0, raf, stroke = "#fff";
+  function readStroke(){ stroke = getComputedStyle(document.documentElement).getPropertyValue("--accent-ink").trim() || "#fff"; }
+  function sizeCanvas(){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    cv.width = r.width * d; cv.height = r.height * d; ctx.setTransform(d,0,0,d,0,0);
+  }
+  function draw(){
+    var w = cv.clientWidth, h = cv.clientHeight;
+    ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle = stroke; ctx.lineWidth = 1;
+    for (var i = 0; i < 14; i++){
+      ctx.beginPath();
+      var base = h * 0.12 + i * (h * 0.055);
+      for (var x = 0; x <= w; x += 6){
+        var y = base + (x / w) * (i * 3.2) + Math.sin(x * 0.018 + i * 0.6 + tick) * 4;
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+  }
+  function loop(){ tick += 0.006; draw(); raf = requestAnimationFrame(loop); }
+  readStroke(); sizeCanvas(); draw();
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function(){ readStroke(); draw(); });
+  new MutationObserver(function(){ readStroke(); draw(); }).observe(document.documentElement, { attributes:true, attributeFilter:["data-theme"] });
+  if (!reduce) {
+    loop();
+    document.addEventListener("visibilitychange", function(){ cancelAnimationFrame(raf); if (!document.hidden) loop(); });
+  }
+  window.addEventListener("resize", function(){ sizeCanvas(); draw(); moveIndicator(true); });
+
+  applyText(); renderRef(); spy();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ moveIndicator(true); });
+  moveIndicator(true);
+})();
+</script>
+</body>
+</html>
